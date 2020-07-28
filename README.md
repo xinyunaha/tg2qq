@@ -1,3 +1,5 @@
+## tg2qq
+这是一个使用coolq以及python-telegram-bot库的一个tg、qq互相转发的简易bot
 ## Todo
 - [x] 互相转发文本消息
 - [x] 使用http代理连接tg 
