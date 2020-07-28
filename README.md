@@ -9,6 +9,7 @@
 - [ ] 带敏感词不转发
 ## 如何使用
 * 安装依赖 pip3 install python-telegram-bot
+* 复制config-example.py为config.py
 * 编辑config.py,修改为您的配置
 * 使用如下命令运行:python tg2qq.py
 ## coolq配置
