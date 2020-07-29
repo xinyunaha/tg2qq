@@ -3,6 +3,7 @@ import websocket
 import json
 import config
 import threading
+import message
 
 ws = None
 updater = None
@@ -45,13 +46,14 @@ def qq():
 def tg():
     global updater
     if config.proxy:
-        updater = Updater(token=config.PoiGuGuGu_token, request_kwargs={'proxy_url': config.proxy_url}, use_context=True)
+        updater = Updater(token=config.tg_bot_token, request_kwargs={'proxy_url': config.proxy_url}, use_context=True)
     else:
-        updater = Updater(token=config.PoiGuGuGu_token, use_context=True)
+        updater = Updater(token=config.tg_bot_token, use_context=True)
     dispatcher = updater.dispatcher
     print(updater.bot.get_me())
 
     def msgHandler(msg, context):
+        print(msg.message)
         msgJsonStr = json.loads(
             str(msg.message).replace("'", '"').replace('False', 'false').replace('True', 'true'))
         text = msg.message.text
@@ -62,7 +64,7 @@ def tg():
             user = msgJsonStr['from'].get('username')
             SendMsg = f'来自TG [{user}]:\n{text}'
             JsonStr = {"action": "send_group_msg", "params": {"group_id": config.qq_group, "message": SendMsg}}
-            ws.send(json.dumps(JsonStr))
+            # ws.send(json.dumps(JsonStr))
 
     dispatcher.add_handler(MessageHandler(Filters.text, msgHandler))
     updater.start_polling()
@@ -71,5 +73,5 @@ def tg():
 qq = threading.Thread(target=qq)
 tg = threading.Thread(target=tg)
 
-qq.start()
+# qq.start()
 tg.start()

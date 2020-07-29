@@ -1,2 +1,6 @@
 .idea
+.venv
+.git
+.gitignore
 config.py
+fuck
