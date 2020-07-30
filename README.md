@@ -3,15 +3,15 @@
 ## Todo
 - [x] 互相转发文本消息
 - [x] 使用http代理连接tg 
+- [ ] 多群转发
 - [ ] qq->tg发送图片
 - [ ] tg->qq发送图片(需要coolq pro)
 - [ ] 语音转文字发送(qq->tg)
 - [ ] 带敏感词不转发
 ## 如何使用
-* 安装依赖 pip3 install python-telegram-bot
-* 复制config-example.py为config.py
-* 编辑config.py,修改为您的配置
-* 使用如下命令运行:python tg2qq.py
+* 确保已经安装了python环境,pip可以使用
+* 使用如下命令运行:python main.py
+* [可选] 复制config-example.py为config.py并编辑config.py,修改为您的配置
 ## coolq配置
 * [安装coolq](https://cqp.cc/)
 * [安装cqhttp插件](https://github.com/richardchien/coolq-http-api/releases)
