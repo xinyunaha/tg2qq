@@ -1,9 +1,16 @@
+try:
+    import config
+except:
+    print('第一次运行，进入配置引导')
+    import os
+    os.system('python init.py')
+
 from telegram.ext import Updater, MessageHandler, Filters
 import websocket
 import json
-import config
 import threading
 import message
+import message.qq
 
 ws = None
 updater = None
@@ -54,17 +61,18 @@ def tg():
 
     def msgHandler(msg, context):
         print(msg.message)
-        msgJsonStr = json.loads(
-            str(msg.message).replace("'", '"').replace('False', 'false').replace('True', 'true'))
-        text = msg.message.text
-        if len(text) > config.tg_message_max:
-            pass
-        else:
-            # group = msgJsonStr['chat'].get('id')
-            user = msgJsonStr['from'].get('username')
-            SendMsg = f'来自TG [{user}]:\n{text}'
-            JsonStr = {"action": "send_group_msg", "params": {"group_id": config.qq_group, "message": SendMsg}}
-            # ws.send(json.dumps(JsonStr))
+        print(message.qq.SendTextToQQ(ws, msg.message))
+        # msgJsonStr = json.loads(
+        #     str(msg.message).replace("'", '"').replace('False', 'false').replace('True', 'true'))
+        # text = msg.message.text
+        # if len(text) > config.tg_message_max:
+        #     pass
+        # else:
+        #     # group = msgJsonStr['chat'].get('id')
+        #     user = msgJsonStr['from'].get('username')
+        #     SendMsg = f'来自TG [{user}]:\n{text}'
+        #     JsonStr = {"action": "send_group_msg", "params": {"group_id": config.qq_group, "message": SendMsg}}
+        #
 
     dispatcher.add_handler(MessageHandler(Filters.text, msgHandler))
     updater.start_polling()
@@ -73,5 +81,5 @@ def tg():
 qq = threading.Thread(target=qq)
 tg = threading.Thread(target=tg)
 
-# qq.start()
+qq.start()
 tg.start()

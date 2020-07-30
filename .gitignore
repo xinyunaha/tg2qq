@@ -4,3 +4,5 @@
 .gitignore
 config.py
 fuck
+test.py
+config_test.py
